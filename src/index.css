@@ -2,10 +2,10 @@
 /* custom css */
 
 .bg-grey {
-  background-color:rgba(238, 238, 238, 0.8);
+  background-color:#eee!important;
 }
 .bg-light-grey {
-  background-color:#eee;
+  background-color:rgb(231, 230, 230)!important;
 }
 
 .vh-85 {
@@ -29,13 +29,23 @@
   border-bottom: 2px black solid;
 } 
 
-.dropdown-menu {
-  width: 60vw!important;
-  /* background-color: red!important; */
-  border: none!important;
-}
 .badge-menu {
   padding:15px 25px!important;
   border-radius: 20px!important;
   margin: 5px;
+}
+.dropdown-menu {
+  width: 58vw!important;
+  border: none!important;
+  margin-left: 11px!important;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+  .dropdown-menu {
+    width: 100vw!important;
+    border: none!important;
+    margin-left: 0!important;
+  }
 }

@@ -1,123 +1,132 @@
 import React, { useState } from "react";
-import ScrollMenu from "react-horizontal-scrolling-menu";
-import { Dropdown, Row, Col, Badge, ButtonGroup, Button } from "react-bootstrap";
-
-// list of items
-const list = [
-  { name: "TOP" },
-  { name: "Rekomendasi" },
-  { name: "Showbiz" },
-  { name: "News" },
-  { name: "Life" },
-  { name: "Regional" },
-  { name: "Hot Issue" },
-  { name: "Intermezzo" },
-  { name: "Trending" },
-  { name: "Watch Now" },
-  { name: "K! Update" },
-  { name: "Sci-Tech" },
-];
-
-// One item component
-// selected prop will be passed
-const MenuItem = ({ text, selected }) => {
-  return <div className={`menu-item ${selected ? "active" : ""}`}>{text}</div>;
-};
-
-// All items component
-// Important! add unique key
-export const Menu = (list, selected) =>
-  list.map((el) => {
-    const { name } = el;
-
-    return <MenuItem text={name} key={name} selected={selected} />;
-  });
+import { Row, Col, ButtonGroup, Button } from "react-bootstrap";
+import Navbar from "../components/Navbar";
+import Carousel from "../components/Carousel";
+import Article from "../components/Article";
+import { useDispatch, useSelector } from "react-redux";
+import { getArticle } from "../redux/actions/article";
 
 export default function Top() {
-  const [selected, setSelected] = useState("TOP");
-  const [visibility, setVisibility] = useState("initial");
-  let menuItems = Menu(list, selected);
-  const menu = menuItems;
+  const dispatch = useDispatch();
+  const { article } = useSelector((state) => state.article);
 
-  const onSelect = (key) => {
-    setSelected(key);
-  };
+  React.useEffect(() => {
+    dispatch(getArticle());
+  }, []);
+  // console.log(article[0]);
   return (
-    <div className="bg-grey vh-85 shadow">
-      <div className="bg-white container">
-        <div className="d-flex justify-content-between">
-          <img alt="edit" src={`${window.location.origin}/images/logo.svg`} />
-          <a href="masuk" className="text-decoration-none text-reset mr-2">
-            Masuk
-          </a>
+    <Row className="bg-grey vh-85 mx-0">
+      <Col></Col>
+      <Col className="bg-white p-0" sm={12} md={7}>
+        <Navbar />
+        <div className="bg-light-grey text-center">
+          <ButtonGroup className="w-75 my-3 ">
+            <Button variant="light" className="border">
+              HOT Issue
+            </Button>
+            <Button variant="light" className="border">
+              Watch Now
+            </Button>
+            <Button variant="light" className="border">
+              K! Update
+            </Button>
+          </ButtonGroup>
+
+          <Carousel />
+
+          {/* //News */}
+          <div className="mt-5 ml-4">
+            {article[0].templates[1].sections[1].articles.map((item, index) => {
+              return (
+                <Row className="my-2"  onClick={() => (window.location = item.url.url)} style={{cursor:'pointer'}}>
+                  <Col xs={5} md={3} >
+                    <img
+                      src={`https://obs.line-scdn.net/${item.thumbnail.hash}`}
+                      height={60}
+                    />
+                  </Col>
+                  <Col xs={7} md={9}>
+                    <h6 className="text-left">{item.title}</h6>
+                    <p className="text-left">
+                      <small>{item.publisher}</small>
+                    </p>
+                  </Col>
+                </Row>
+              );
+            })}
+
+            <Article
+              title={article[0].templates[5].title}
+              article={article[0].templates[5].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[7].title}
+              article={article[0].templates[7].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[8].title}
+              article={article[0].templates[8].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[9].title}
+              article={article[0].templates[9].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[10].title}
+              article={article[0].templates[10].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[11].meta.categoryName}
+              article={article[0].templates[11].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[12].title}
+              article={article[0].templates[12].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[13].title}
+              article={article[0].templates[13].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[14].title}
+              article={article[0].templates[14].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[16].title}
+              article={article[0].templates[16].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[17].title}
+              article={article[0].templates[17].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[19].title}
+              article={article[0].templates[19].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[20].title}
+              article={article[0].templates[20].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[21].title}
+              article={article[0].templates[21].sections[0].articles}
+            />
+            <Article
+              title={article[0].templates[23].title}
+              article={article[0].templates[23].sections[0].articles}
+              bgColor="bg-light-grey"
+            />
+          </div>
+          <div className="bg-grey p-5">
+            <small  className="mr-5">Term Of Use</small>
+            <small>Privacy Policy</small>
+            <small  className="ml-5">Disclaimer</small>
+            <div><small>© Line Corporation</small></div>
+          </div>
+          
         </div>
-        <Row>
-          <Col xs="11">
-            <div className="mt-3" style={{ visibility: visibility }}>
-              <ScrollMenu data={menu} selected={selected} onSelect={onSelect} />
-            </div>
-          </Col>
-          <Col xs="1" className="mt-2">
-            <Dropdown
-              onToggle={() => setVisibility("initial")}
-              onClick={() => setVisibility("hidden")}
-            >
-              <Dropdown.Toggle variant="white" />
-              <Dropdown.Menu className="dropdown-menu">
-                <Badge variant="dark" className="badge-menu">
-                  TOP
-                </Badge>
-                <Badge variant="light" className="badge-menu">
-                  Rekomendasi
-                </Badge>
-                <Badge variant="light" className="badge-menu">
-                  Showbiz
-                </Badge>
-                <Badge variant="light" className="badge-menu">
-                  News
-                </Badge>
-                <Badge variant="light" className="badge-menu">
-                  Life
-                </Badge>
-                <Badge variant="light" className="badge-menu">
-                  Regional
-                </Badge>
-                <Badge variant="light" className="badge-menu">
-                  Hot Issue
-                </Badge>
-                <Badge variant="light" className="badge-menu">
-                  TOP
-                </Badge>
-                <Badge variant="light" className="badge-menu">
-                  Rekomendasi
-                </Badge>
-                <Badge variant="light" className="badge-menu">
-                  Showbiz
-                </Badge>
-                <Badge variant="light" className="badge-menu">
-                  News
-                </Badge>
-                <Badge variant="light" className="badge-menu">
-                  Life
-                </Badge>
-                <Badge variant="light" className="badge-menu">
-                  Regional
-                </Badge>
-                <Badge variant="light" className="badge-menu">
-                  Hot Issue
-                </Badge>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Col>
-        </Row>
-      </div>
-      <div className="bg-light-grey container">
-        <ButtonGroup className="w-100 pr-4 my-3">
-          <Button variant="light" className="py-2 px-5">HOT Issue</Button>
-          <Button variant="light" className="py-2 px-5">Watch Now</Button>
-          <Button variant="light" className="py-2 px-5">K! Update</Button>
-        </ButtonGroup>
-      </div>
-    </div>
+      </Col>
+      <Col></Col>
+    </Row>
   );
 }

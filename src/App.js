@@ -6,7 +6,7 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import { Top } from "./pages";
+import { Top, Detail } from "./pages";
 
 function App() {
   return (
@@ -18,11 +18,18 @@ function App() {
           <Route exact path="/">
             <Top />
           </Route>
-       <Route path="/masuk" component={()=>{
-         window.location.href="https://access.line.me/oauth2/v2.1/login?loginState=FEVr6qaMc9TriE9bfOhZ5j&loginChannelId=1518712866&returnUri=%2Foauth2%2Fv2.1%2Fauthorize%2Fconsent%3Fscope%3Dopenid%2Bprofile%2Bfriends%2Bgroups%2Bmessage.write%2Btimeline.post%26response_type%3Dcode%26state%3DAAY3eXizlEg%26redirect_uri%3Dhttps%253A%252F%252Fapi.today.line.me%252Fwebapi%252Fauthcb%26client_id%3D1518712866#/";
-         return null
-       }} />
-       <Route path="*" component={NotFound} />
+          <Route exact path="/detail/:url">
+            <Detail />
+          </Route>
+          <Route
+            path="/masuk"
+            component={() => {
+              window.location.href =
+                "https://access.line.me/oauth2/v2.1/login?loginState=FEVr6qaMc9TriE9bfOhZ5j&loginChannelId=1518712866&returnUri=%2Foauth2%2Fv2.1%2Fauthorize%2Fconsent%3Fscope%3Dopenid%2Bprofile%2Bfriends%2Bgroups%2Bmessage.write%2Btimeline.post%26response_type%3Dcode%26state%3DAAY3eXizlEg%26redirect_uri%3Dhttps%253A%252F%252Fapi.today.line.me%252Fwebapi%252Fauthcb%26client_id%3D1518712866#/";
+              return null;
+            }}
+          />
+          <Route path="*" component={NotFound} />
         </Switch>
       </div>
     </Router>
