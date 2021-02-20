@@ -1,7 +1,7 @@
 # UI
 
-[https://i.ibb.co/T0TzCZD/1.png]
-[https://i.ibb.co/2dbFYSs/2.png]
+<img src="https://i.ibb.co/T0TzCZD/1.png" width="250">
+<img src="https://i.ibb.co/2dbFYSs/2.png" width="250">
 
 # Getting Started with Create React App
 
